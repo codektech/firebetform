@@ -4,7 +4,7 @@ import logo from './logo.png';
 
 const validate = (values) => {
   const errors = {};
-
+  // validations
   if (!values.firstName) {
     errors.firstName = 'Required';
   } else if (values.firstName.length > 15) {
@@ -25,7 +25,7 @@ const validate = (values) => {
   if (!values.phone) {
     errors.phone = 'Required';
   } else if (values.phone.length > 10) {
-    errors.phone = 'Must be 11 digits';
+    errors.phone = 'Must be 11 digits Number';
   }
 
   return errors;
