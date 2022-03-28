@@ -22,6 +22,11 @@ const validate = (values) => {
   } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
     errors.email = 'Invalid email address';
   }
+  if (!values.phone) {
+    errors.phone = 'Required';
+  } else if (values.phone.length > 10) {
+    errors.phone = 'Must be 11 digits';
+  }
 
   return errors;
 };
@@ -35,8 +40,16 @@ const Formformik = () => {
       phone: '',
     },
     validate,
-    onSubmit: (values) => {
+    onSubmit: (values, actions) => {
       alert(JSON.stringify(values, null, 2));
+      actions.resetForm({
+        initialValues: {
+          firstName: '',
+          lastName: '',
+          email: '',
+          phone: '',
+        },
+      });
     },
   });
   return (
@@ -49,10 +62,10 @@ const Formformik = () => {
         className=" pt-12 flex flex-col w-96 m-auto gap-3 p-5 rounded-2xl shadow-md bg-[#EBECF0]"
         onSubmit={formik.handleSubmit}
       >
-        <h1 className="m-auto text-2xl text-[#F3722C] font-bold pb-5 ">
+        <h1 className="text-center text-2xl rounded-xl drop-shadow-lg  text-[#F3722C] font-bold p-2 bg-white  m-auto w-full">
           Login
         </h1>
-        <label className="font-semibold" htmlFor="firstName">
+        <label className="font-semibold mt-5" htmlFor="firstName">
           First Name
         </label>
         <input
@@ -62,7 +75,7 @@ const Formformik = () => {
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           value={formik.values.firstName}
-          className="outline-none bg-white p-2 rounded-xl  "
+          className="focus:outline-[#F3722C] bg-white p-2 rounded-xl  "
         />
         {formik.touched.firstName && formik.errors.firstName ? (
           <div className="text-red-500">{formik.errors.firstName}</div>
@@ -78,7 +91,7 @@ const Formformik = () => {
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           value={formik.values.lastName}
-          className="outline-none bg-white p-2 rounded-xl "
+          className="focus:outline-[#F3722C] bg-white p-2 rounded-xl "
         />
         {formik.touched.lastName && formik.errors.lastName ? (
           <div className="text-red-500">{formik.errors.lastName}</div>
@@ -94,7 +107,7 @@ const Formformik = () => {
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           value={formik.values.email}
-          className="outline-none bg-white p-2 rounded-xl "
+          className="focus:outline-[#F3722C] bg-white p-2 rounded-xl "
         />
         {formik.touched.email && formik.errors.email ? (
           <div className="text-red-500">{formik.errors.email}</div>
@@ -109,8 +122,11 @@ const Formformik = () => {
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           value={formik.values.phone}
-          className="outline-none bg-white p-2 rounded-xl "
+          className="focus:outline-[#F3722C] bg-white p-2 rounded-xl "
         />
+        {formik.touched.phone && formik.errors.phone ? (
+          <div className="text-red-500">{formik.errors.phone}</div>
+        ) : null}
         <button className="bg-[#F3722C]  p-2 w-full text-white mt-6 rounded-full text-xl font-semibold">
           Submit
         </button>
