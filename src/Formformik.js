@@ -11,11 +11,11 @@ const validate = values => {
     errors.shop_id = "Must be 15 characters or less";
   }
 
-  if (!values.lastName) {
-    errors.lastName = "Required";
-  } else if (values.lastName.length > 20) {
-    errors.lastName = "Must be 20 characters or less";
-  }
+  // if (!values.lastName) {
+  //   errors.lastName = "Required";
+  // } else if (values.lastName.length > 20) {
+  //   errors.lastName = "Must be 20 characters or less";
+  // }
 
   if (!values.email) {
     errors.email = "Required";
@@ -43,6 +43,7 @@ const Formformik = () => {
     validate,
     onSubmit: (values, actions) => {
       alert(JSON.stringify(values, null, 2));
+      console.log("first");
       actions.resetForm({
         initialValues: {
           firstName: "",
@@ -118,7 +119,13 @@ const Formformik = () => {
               {formik.errors.phone}
             </div>
           : null}
-        <button className="bg-[#F3722C]  p-2 w-full text-white mt-6 rounded-full text-xl font-semibold">
+        <button
+          type="submit"
+          className="bg-[#F3722C]  p-2 w-full text-white mt-6 rounded-full text-xl font-semibold"
+        >
+          Submit
+        </button>
+        <button onClick={() => formik.handleSubmit()} type="submit">
           Submit
         </button>
       </form>
