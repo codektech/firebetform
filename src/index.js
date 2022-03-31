@@ -1,13 +1,34 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import App from "./App";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useParams
+} from "react-router-dom";
+import Formformik from "./Formformik";
+import Email from "./Email";
 
+function BlogPost() {
+  let { slug } = useParams();
+  return (
+    <div>
+      Now showing post {slug}
+    </div>
+  );
+}
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Router>
+      <Routes>
+        <Route path="/register/:id" element={<Formformik />} />
+        <Route path="/register/confirm" element={<Email />} />
+      </Routes>
+    </Router>
   </React.StrictMode>,
-  document.getElementById('root'),
+  document.getElementById("root")
 );
 
 // If you want to start measuring performance in your app, pass a function

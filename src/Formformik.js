@@ -1,6 +1,9 @@
 import React from "react";
 import { useFormik } from "formik";
 import logo from "./logo.png";
+import { useParams,useNavigate } from "react-router-dom";
+import axios from "axios";
+
 
 const validate = values => {
   const errors = {};
@@ -32,9 +35,12 @@ const validate = values => {
 };
 
 const Formformik = () => {
+  const navigate = useNavigate();
+
+  let params = useParams();
   const formik = useFormik({
     initialValues: {
-      shop_id: "",
+      shop_id: params?.id,
       firstName: "",
       lastName: "",
       email: "",
@@ -42,8 +48,16 @@ const Formformik = () => {
     },
     validate,
     onSubmit: (values, actions) => {
-      alert(JSON.stringify(values, null, 2));
-      console.log("first");
+      // alert(JSON.stringify(values, null, 2));
+      let data = {shop_id:values.shop_id,email:values.email,ph_no:values.phone}
+      try {
+        axios.post("https://cdk-vfb.herokuapp.com/customer",
+        data
+        ).then(res=>console.log(res))
+        navigate("/register/confirm")
+      } catch (e) {
+        console.log(e)
+      }
       actions.resetForm({
         initialValues: {
           firstName: "",
@@ -71,6 +85,7 @@ const Formformik = () => {
           Shop ID
         </label>
         <input
+        disabled
           id="shop_id"
           name="shop_id"
           type="text"
