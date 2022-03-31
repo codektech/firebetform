@@ -1,31 +1,31 @@
-import React from 'react';
-import { useFormik } from 'formik';
-import logo from './logo.png';
+import React from "react";
+import { useFormik } from "formik";
+import logo from "./logo.png";
 
-const validate = (values) => {
+const validate = values => {
   const errors = {};
   // validations
-  if (!values.firstName) {
-    errors.firstName = 'Required';
-  } else if (values.firstName.length > 15) {
-    errors.firstName = 'Must be 15 characters or less';
+  if (!values.shop_id) {
+    errors.shop_id = "Required";
+  } else if (values.shop_id.length > 15) {
+    errors.shop_id = "Must be 15 characters or less";
   }
 
   if (!values.lastName) {
-    errors.lastName = 'Required';
+    errors.lastName = "Required";
   } else if (values.lastName.length > 20) {
-    errors.lastName = 'Must be 20 characters or less';
+    errors.lastName = "Must be 20 characters or less";
   }
 
   if (!values.email) {
-    errors.email = 'Required';
+    errors.email = "Required";
   } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-    errors.email = 'Invalid email address';
+    errors.email = "Invalid email address";
   }
   if (!values.phone) {
-    errors.phone = 'Required';
+    errors.phone = "Required";
   } else if (values.phone.length > 10) {
-    errors.phone = 'Must be 11 digits Number';
+    errors.phone = "Must be 11 digits Number";
   }
 
   return errors;
@@ -34,23 +34,24 @@ const validate = (values) => {
 const Formformik = () => {
   const formik = useFormik({
     initialValues: {
-      firstName: '',
-      lastName: '',
-      email: '',
-      phone: '',
+      shop_id: "",
+      firstName: "",
+      lastName: "",
+      email: "",
+      phone: ""
     },
     validate,
     onSubmit: (values, actions) => {
       alert(JSON.stringify(values, null, 2));
       actions.resetForm({
         initialValues: {
-          firstName: '',
-          lastName: '',
-          email: '',
-          phone: '',
-        },
+          firstName: "",
+          lastName: "",
+          email: "",
+          phone: ""
+        }
       });
-    },
+    }
   });
   return (
     <div className="w-96 m-auto pt-28   relative ">
@@ -63,39 +64,25 @@ const Formformik = () => {
         onSubmit={formik.handleSubmit}
       >
         <h1 className="text-center text-2xl rounded-xl drop-shadow-lg  text-[#F3722C] font-bold p-2 bg-white  m-auto w-full">
-          Login
+          Register Account
         </h1>
         <label className="font-semibold mt-5" htmlFor="firstName">
-          First Name
+          Shop ID
         </label>
         <input
-          id="firstName"
-          name="firstName"
+          id="shop_id"
+          name="shop_id"
           type="text"
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
-          value={formik.values.firstName}
+          value={formik.values.shop_id}
           className="focus:outline-[#F3722C] bg-white p-2 rounded-xl  "
         />
-        {formik.touched.firstName && formik.errors.firstName ? (
-          <div className="text-red-500">{formik.errors.firstName}</div>
-        ) : null}
-
-        <label className="font-semibold" htmlFor="lastName">
-          Last Name
-        </label>
-        <input
-          id="lastName"
-          name="lastName"
-          type="text"
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          value={formik.values.lastName}
-          className="focus:outline-[#F3722C] bg-white p-2 rounded-xl "
-        />
-        {formik.touched.lastName && formik.errors.lastName ? (
-          <div className="text-red-500">{formik.errors.lastName}</div>
-        ) : null}
+        {formik.touched.shop_id && formik.errors.shop_id
+          ? <div className="text-red-500">
+              {formik.errors.shop_id}
+            </div>
+          : null}
 
         <label className="font-semibold" htmlFor="email">
           Email Address
@@ -109,9 +96,11 @@ const Formformik = () => {
           value={formik.values.email}
           className="focus:outline-[#F3722C] bg-white p-2 rounded-xl "
         />
-        {formik.touched.email && formik.errors.email ? (
-          <div className="text-red-500">{formik.errors.email}</div>
-        ) : null}
+        {formik.touched.email && formik.errors.email
+          ? <div className="text-red-500">
+              {formik.errors.email}
+            </div>
+          : null}
         <label className="font-semibold" htmlFor="phone">
           Phone Number
         </label>
@@ -124,9 +113,11 @@ const Formformik = () => {
           value={formik.values.phone}
           className="focus:outline-[#F3722C] bg-white p-2 rounded-xl "
         />
-        {formik.touched.phone && formik.errors.phone ? (
-          <div className="text-red-500">{formik.errors.phone}</div>
-        ) : null}
+        {formik.touched.phone && formik.errors.phone
+          ? <div className="text-red-500">
+              {formik.errors.phone}
+            </div>
+          : null}
         <button className="bg-[#F3722C]  p-2 w-full text-white mt-6 rounded-full text-xl font-semibold">
           Submit
         </button>
