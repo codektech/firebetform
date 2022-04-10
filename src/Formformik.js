@@ -60,7 +60,7 @@ const Formformik = () => {
     // "shop_id":"vfb_001",
     // "email":"test@gmail.com"
     //   }
-       await axios.post("http://localhost:3000/customer",
+       await axios.post("https://cdk-vfb.herokuapp.com/customer",
         data
        ).then(res=>
         {
